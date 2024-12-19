@@ -17,13 +17,13 @@ const flightRoute = require("./routes/flights"); // Import flight routes
 const userroute = require("./routes/users");
 const seatRoute = require("./routes/flightSeats");
 const PaymentRoute = require("./routes/confirmandpay");
-
+const adminroute = require("./routes/admins");
 app.use(express.json());
 app.use("/users", userroute);
 app.use("/api/flights", flightRoute); // Use flight routes here
 app.use("/api/seatsflight", seatRoute);
 app.use("/api/payment", PaymentRoute);
-
+app.use("/admin", adminroute);
 
 app.listen(3000, () => {
   console.log("server works successfully");
