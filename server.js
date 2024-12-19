@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+
 require("./config/connect");
 
 const app = express();
@@ -12,9 +13,17 @@ app.use(
   })
 );
 
+const flightRoute = require("./routes/flights"); // Import flight routes
 const userroute = require("./routes/users");
+const seatRoute = require("./routes/flightSeats");
+const PaymentRoute = require("./routes/confirmandpay");
+
 app.use(express.json());
 app.use("/users", userroute);
+app.use("/api/flights", flightRoute); // Use flight routes here
+app.use("/api/seatsflight", seatRoute);
+app.use("/api/payment", PaymentRoute);
+
 
 app.listen(3000, () => {
   console.log("server works successfully");

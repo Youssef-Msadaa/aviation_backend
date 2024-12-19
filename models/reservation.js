@@ -1,28 +1,47 @@
-// Reservation Model
-const ReservationSchema = new mongoose.Schema({
+const mongoose = require('mongoose');
+
+// Reservation schema
+const reservationSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+    ref: 'Users',    // Link to Users model
+    required: true
   },
   flight: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "AviationTrack",
-    required: true,
+    ref: 'Flight',   // Link to Flight model
+    required: true
   },
-  seatNumber: {
+  seatId: {
+    type: String,    // ID of the reserved seat
+    required: true
+  },
+  seatClass: {
     type: String,
-    required: true,
+    enum: ['economy', 'business'],
+    required: true
   },
   status: {
     type: String,
-    enum: ["confirmed", "pending", "canceled"],
-    default: "pending",
+    enum: ['pending', 'confirmed', 'cancelled'], // Pending until confirmed, can be cancelled
+    default: 'pending'
   },
-  created_at: {
+  paymentStatus: {
+    type: String,
+    enum: ['pending', 'paid'],
+    default: 'pending'
+  },
+  createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-module.exports = mongoose.model("Reservation", ReservationSchema);
+// Create a model from this schema
+const Reservation = mongoose.model('Reservation', reservationSchema);
+
+module.exports = Reservation;
